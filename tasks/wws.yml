@@ -1,0 +1,18 @@
+version: '3'
+
+description: >
+  # Install Wasm Workers Server
+
+tasks:
+  # task wws:install
+  install:
+    env:
+
+    cmds:
+      - |
+        # ------------------------------------
+        # Install Wasm Workers Server support
+        # ------------------------------------
+        #sudo curl https://raw.githubusercontent.com/vmware-labs/wasm-workers-server/main/install.sh | bash
+
+        curl -fsSL https://workers.wasmlabs.dev/install | bash

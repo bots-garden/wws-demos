@@ -8,10 +8,12 @@ env:
   HANDLE: "bob"
 
 includes:
-  wasm-rt: ./wasm-rt.yml
-  golang: ./golang.yml
-  rust: ./rust.yml
-  git: ./git.yml
+  wasm-rt: ./tasks/wasm-rt.yml
+  golang: ./tasks/golang.yml
+  rust: ./tasks/rust.yml
+  git: ./tasks/git.yml
+  wws: ./tasks/wws.yml
+  
 
 
 

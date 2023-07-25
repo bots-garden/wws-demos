@@ -10,6 +10,8 @@ task golang:install
 # Install Rust and wasm-bindgen
 task rust:install
 task rust:install-wasm-bindgen
+# Install Wasm Workers Server
+task wws:install
 
 # Git configuration
 task git:generate-ssh-key
