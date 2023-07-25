@@ -1,0 +1,27 @@
+version: '3'
+
+description: >
+  # Install the wasm runtimes
+
+tasks:
+  # task wasm-rt:install
+  install:
+    description: >
+      ```bash
+      task wasm-rt:install
+      ```
+    cmds:
+      - |
+        # -----------------------
+        # Install Wasi Runtimes
+        # -----------------------
+
+        curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash
+
+        source ${HOME}/.wasmedge/env
+
+        curl https://get.wasmer.io -sSfL | sh
+        source ${HOME}/.wasmer/wasmer.sh
+
+        curl https://wasmtime.dev/install.sh -sSf | bash
+        source ${HOME}/.bashrc

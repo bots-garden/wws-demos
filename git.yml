@@ -1,0 +1,30 @@
+version: '3'
+
+description: >
+  # Git setup
+
+  ## Repository of the project
+
+  ```bash
+  git init
+  git add .
+  git commit -m "🎉 initialize"
+git remote add origin https://github.com/bots-garden/wws-demos.git
+git branch -M main
+git push -u origin main
+  ```
+
+
+tasks:
+  generate-ssh-key:
+    cmds:
+      - | # Generate SSH Key
+        ssh-keygen -o -t rsa -C "${EMAIL}"
+        cat /home/ubuntu/.ssh/id_rsa.pub
+
+  git-config:
+    cmds:
+      - | # Git configuration
+        git config --global user.email "${EMAIL}"
+        git config --global user.name "${HANDLE}"
+        git config --global init.defaultBranch main

@@ -1,0 +1,18 @@
+version: '3'
+
+description: >
+  EMAIL and HANDLE are used for git and GitLab or GitHub
+
+env:
+  EMAIL: "bob@morane.com"
+  HANDLE: "bob"
+
+includes:
+  wasm-rt: ./wasm-rt.yml
+  golang: ./golang.yml
+  rust: ./rust.yml
+  git: ./git.yml
+
+
+
+

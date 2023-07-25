@@ -1,0 +1,41 @@
+version: '3'
+
+description: >
+  # Install Rust and Wasm Bindgen
+
+tasks:
+  # task rust:install
+  install:
+    description: >
+      ```bash
+      task rust:install
+      ```
+    cmds:
+      - |
+        # -----------------------
+        # Install Rust support
+        # -----------------------
+        curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y
+
+        echo "export CARGO_HOME=\"\$HOME/.cargo\"" >> ${HOME}/.bashrc
+        echo "export PATH=\"\$CARGO_HOME/bin:\$PATH\"" >> ${HOME}/.bashrc
+
+  install-wasm-bindgen:
+    description: >
+      ```bash
+      task rust:install-wasm-bindgen
+      ```
+    cmds:
+      - |
+        source $HOME/.cargo/env
+        source $HOME/.bashrc
+        curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+        rustup target add wasm32-wasi
+        rustup target add wasm32-unknown-unknown
+
+        # -----------------------
+        # Install Wasm Bindgen
+        # -----------------------
+        cargo install -f wasm-bindgen-cli
+
+
