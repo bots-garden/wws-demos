@@ -1,13 +1,5 @@
 
-curl -fsSL https://workers.wasmlabs.dev/install | bash && \
-    wws https://github.com/vmware-labs/wasm-workers-server.git \
-      --install-runtimes --git-folder "examples/js-basic"
-
-
-https://wws-web-ide.local:9090/proxy/8080/
-
 wget https://github.com/vmware-labs/wasm-workers-server/releases/download/v1.4.0/wws-linux-musl-aarch64.tar.gz
-
 tar -xzf wws-linux-musl-aarch64.tar.gz
 rm wws-linux-musl-aarch64.tar.gz
 

@@ -22,9 +22,17 @@ tasks:
       wget https://github.com/tinygo-org/tinygo/releases/download/v${TINYGO_VERSION}/tinygo_${TINYGO_VERSION}_${TINYGO_ARCH}.deb
       sudo dpkg -i tinygo_${TINYGO_VERSION}_${TINYGO_ARCH}.deb
       rm tinygo_${TINYGO_VERSION}_${TINYGO_ARCH}.deb
+
+      curl -fsSL https://workers.wasmlabs.dev/install | bash
     init: |
       echo "🚀 initialize..."
       go install -v github.com/mgechev/revive@v1.2.3
+
+      # ----------------------------
+      # Install Wasm Workers Server
+      # ----------------------------
+      curl -fsSL https://workers.wasmlabs.dev/install | bash
+
 
 ports:
   - port: 8080
