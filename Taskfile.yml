@@ -8,11 +8,19 @@ env:
   HANDLE: "bob"
 
 includes:
+  build-essential: ./tasks/build-essential.yml
   wasm-rt: ./tasks/wasm-rt.yml
   golang: ./tasks/golang.yml
   rust: ./tasks/rust.yml
   git: ./tasks/git.yml
   wws: ./tasks/wws.yml
+  k9s: ./tasks/k9s.yml # task k9s:install
+  helm: ./tasks/helm.yml 
+  k8s-tools: ./tasks/k8s-tools.yml 
+  civo-cli: ./tasks/civo-cli.yml
+  civo: ./tasks/civo.yml 
+
+
   
 
 

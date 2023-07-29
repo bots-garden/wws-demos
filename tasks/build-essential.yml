@@ -1,0 +1,27 @@
+version: '3'
+
+description: >
+  Probably not mandatory
+
+tasks:
+  install:
+    cmds:
+      - |
+        sudo apt-get update
+        sudo apt install build-essential -y
+        sudo apt install unzip -y
+        sudo apt install zip -y
+        sudo apt install openssl -y
+        sudo apt install libssl-dev -y
+        sudo apt install git -y
+
+
+
+
+
+
+
+
+
+
+

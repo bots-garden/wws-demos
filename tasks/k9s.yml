@@ -1,0 +1,14 @@
+version: '3'
+
+description: >
+  # ...
+
+tasks:
+  install:
+    cmds:
+      - |
+        # work in progress
+        # use docker
+        # export KUBECONFIG="./config/k3s.yaml"
+
+

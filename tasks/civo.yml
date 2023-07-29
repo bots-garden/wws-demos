@@ -1,0 +1,101 @@
+version: '3'
+
+description: >
+  # Cico CLI usages
+
+env:
+  CLUSTER_NAME: "wws-cluster"
+  #CLUSTER_SIZE: "g4s.kube.xsmall"
+  #CLUSTER_SIZE: "g4s.kube.medium"
+  CLUSTER_SIZE: "g4s.kube.large"
+  CLUSTER_NODES: 1
+  CLUSTER_REGION: "FRA1"
+  #CLUSTER_REGION: "NYC1"
+  KUBE_NAMESPACE: "default"
+
+
+tasks:
+  init:
+    cmds:
+      - |
+        # ------------------------------------
+        # civo key initialize
+        # ------------------------------------
+        civo apikey add ${CLUSTER_NAME}-key ${CIVO_API_KEY}
+
+  create-cluster:
+    cmds:
+      - |
+        mkdir -p config
+        export KUBECONFIG=$PWD/config/k3s.yaml
+
+        # Add the key to the CLI tool
+        civo apikey add civo-key ${CIVO_API_KEY}
+        civo apikey current civo-key
+
+        # Create the cluster
+        civo kubernetes create ${CLUSTER_NAME} \
+        --size=${CLUSTER_SIZE} \
+        --nodes=${CLUSTER_NODES} \
+        --region=${CLUSTER_REGION} \
+        --wait
+
+        #--applications=Traefik-v2-nodeport \
+
+        # Get the kubernetes config file
+        civo --region=${CLUSTER_REGION} \
+        kubernetes config ${CLUSTER_NAME} > ./config/k3s.yaml
+
+  delete-cluster:
+    cmds:
+      - |
+        export KUBECONFIG=$PWD/config/k3s.yaml
+        civo apikey add civo-key ${CIVO_API_KEY}
+        civo apikey current civo-key
+
+        civo kubernetes remove ${CLUSTER_NAME} --region=${CLUSTER_REGION} --yes 
+
+
+  cluster-info:
+    cmds:
+      - |
+        civo --region=${CLUSTER_REGION} kubernetes show ${CLUSTER_NAME}
+
+  install-traefik:
+    cmds:
+      - |
+        civo --region=${CLUSTER_REGION} \
+        kubernetes applications \
+        add Traefik-v2-nodeport \
+        --cluster=${CLUSTER_NAME}
+
+  k9s:
+    cmds:
+      - |
+        export KUBECONFIG=$PWD/config/k3s.yaml
+        # WIP
+
+  k9s-docker:
+    cmds:
+      - |
+        export KUBECONFIG=$PWD/config/k3s.yaml
+        docker run --rm -it -v $KUBECONFIG:/root/.kube/config quay.io/derailed/k9s
+
+  cluster-list:
+    cmds:
+      - |
+        civo --region=${CLUSTER_REGION} kubernetes list
+
+  cluster-size:
+    cmds:
+      - |
+        # Get the available size for a cluster on civo.com
+        civo kubernetes size
+
+  cluster-config:
+    cmds:
+      - |
+        # Get the kubernetes config file
+        civo --region=${CLUSTER_REGION} \
+        kubernetes config ${CLUSTER_NAME} > ./config/k3s.yaml
+

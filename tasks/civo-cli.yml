@@ -1,0 +1,25 @@
+version: '3'
+
+description: >
+  # $CIVO_API_KEY
+  Go to https://wws-web-ide.local:9090/?folder=/home/ubuntu
+  at the bottom of `.bashrc` add this line:
+
+  ```bash
+  export CIVO_API_KEY="your_key"
+  ```
+
+tasks:
+  install:
+    cmds:
+      - |
+        # ------------------------------------
+        # Install civo cli
+        # ------------------------------------
+        curl -sL https://civo.com/get | sh
+        sudo mv /tmp/civo /usr/local/bin/civo
+
+
+
+
+

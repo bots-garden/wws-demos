@@ -1,1 +1,2 @@
 *.wasm
+config/k3s.yaml

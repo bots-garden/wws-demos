@@ -1,0 +1,45 @@
+
+curl -fsSL https://workers.wasmlabs.dev/install | bash && \
+    wws https://github.com/vmware-labs/wasm-workers-server.git \
+      --install-runtimes --git-folder "examples/js-basic"
+
+
+https://wws-web-ide.local:9090/proxy/8080/
+
+wget https://github.com/vmware-labs/wasm-workers-server/releases/download/v1.4.0/wws-linux-musl-aarch64.tar.gz
+
+tar -xzf wws-linux-musl-aarch64.tar.gz
+rm wws-linux-musl-aarch64.tar.gz
+
+wget https://github.com/vmware-labs/wasm-workers-server/releases/download/v1.4.0/wws-linux-musl-x86_64.tar.gz
+tar -xzf wws-linux-musl-x86_64.tar.gz
+rm wws-linux-musl-x86_64.tar.gz
+
+
+IMAGE_NAME="demo-wws"
+docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}
+docker build -t ${IMAGE_NAME} . 
+
+docker images | grep ${IMAGE_NAME}
+
+ls -a -lh
+
+IMAGE_NAME="demo-wws"
+docker run \
+  -p 8080:8080 \
+  --rm ${IMAGE_NAME}
+
+docker ps
+docker container stop <container_id>
+
+
+  build-push-docker-image:
+    vars:
+      IMAGE_BASE_NAME: "capsule-http"
+      IMAGE_TAG: "0.4.1"
+    cmds:
+      - echo "👋 {{.IMAGE_BASE_NAME}}-{{.GOOS}}-{{.GOARCH}}:{{.IMAGE_TAG}}"
+      - |
+        cd capsule-http
+        docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}
+        docker buildx build --platform {{.GOOS}}/{{.GOARCH}} --push -t ${DOCKER_USER}/{{.IMAGE_BASE_NAME}}-{{.GOOS}}-{{.GOARCH}}:{{.IMAGE_TAG}} .
